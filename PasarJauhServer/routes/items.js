@@ -126,9 +126,6 @@ router.post("/filter", (req, res) => {
 router.post("/", upload.array("images", 10), (req, res) => {
   let { colors, capacities, sizes, stock, price, itemId } = req.body;
   let filenames = req.files.map(file => file.filename);
-
-  console.log(req.body);
-
   let itemAdded = {
     ...req.body,
     ...(colors && { colors: JSON.parse(colors) }),

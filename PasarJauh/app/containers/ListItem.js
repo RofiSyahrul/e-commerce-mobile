@@ -6,10 +6,10 @@ import {
   Header,
   Left,
   Body,
-  Button,
   Icon,
   Title,
-  Content,
+  Right,
+  Fab,
 } from 'native-base';
 import Item from './Item';
 import {loadData} from '../actions/data';
@@ -73,44 +73,35 @@ class ListItem extends Component {
 
   render() {
     let {items} = this.props;
-    let item = items[0];
-
+    console.log({items});
+    
     return (
       <Container>
-        <Header
-          androidStatusBarColor="#007bff"
-          iosBarStyle="light-content"
-          style={{backgroundColor: '#007bff'}}>
-          <Left>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Left>
+        <Header>
+          <Left />
           <Body>
             <Title>Pasar Jauh</Title>
           </Body>
+          <Right />
         </Header>
-        {/* <Content>{item && <Item {...item} />}</Content> */}
-        <FlatList
-          contentContainerStyle={{
-            flex: 1,
-            flexDirection: 'column',
-            height: '100%',
-            width: '100%',
-          }}
-          data={items}
-          keyExtractor={item => item.itemId.toString()}
-          renderItem={({item}) => <Item {...item} />}
-          onEndReached={this.fetchMoreItems}
-          onEndReachedThreshold={0.8}
-          initialNumToRender={items.length < 4 ? items.length : 4}
-          onRefresh={this.handleRefresh}
-          refreshing={this.state.refreshing}
-        />
-        {/* <Footer>
-          <Icon name="copyright" type="MaterialIcons" />
-          <Text>Rofi</Text>
-        </Footer> */}
+        <View style={{flex: 1}}>
+          <FlatList
+            data={items}
+            keyExtractor={item => item.itemId.toString()}
+            renderItem={({item}) => <Item {...item} />}
+            onEndReached={this.fetchMoreItems}
+            onEndReachedThreshold={0.8}
+            initialNumToRender={items.length < 4 ? items.length : 4}
+            onRefresh={this.handleRefresh}
+            refreshing={this.state.refreshing}
+          />
+          <Fab
+            style={{ backgroundColor: '#007bff' }}
+            position="bottomRight"
+            onPress={() => {}}>
+            <Icon name="add" />
+          </Fab>
+        </View>
       </Container>
     );
   }
