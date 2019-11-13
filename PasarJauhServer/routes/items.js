@@ -2,13 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Item = require("../models/item");
 const upload = require("../helpers/upload");
-const filePath = "http://localhost:3001/images/";
-
-const defaultSortBy = [
-  { field: "rate", asc: false },
-  { field: "price", asc: true },
-  { field: "vote", asc: false }
-];
+const { filePath, defaultSortBy } = require("../config");
 
 // get list
 router.get("/", (req, res) => {
@@ -126,8 +120,6 @@ router.post("/filter", (req, res) => {
 router.post("/", upload.array("images", 10), (req, res) => {
   let { colors, capacities, sizes, stock, price, itemId } = req.body;
   let filenames = req.files.map(file => file.filename);
-
-  console.log(req.body);
 
   let itemAdded = {
     ...req.body,

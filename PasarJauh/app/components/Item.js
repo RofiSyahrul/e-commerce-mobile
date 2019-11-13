@@ -1,8 +1,9 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
-import {DeckSwiper, Card, CardItem, Button, Icon} from 'native-base';
+import {Card, CardItem, Button, Icon, H2, Text, H3} from 'native-base';
 import {Rating} from 'react-native-ratings';
+import {Grid, Row, Col} from 'react-native-easy-grid';
 import {convertPrice} from '../helpers/convertPrice';
+import ImageSlider from './ImageSlider';
 
 export default function Item({
   itemId,
@@ -15,46 +16,36 @@ export default function Item({
   showDetail,
 }) {
   return (
-    <Card>
+    <Card style={{flex: 1}}>
       <CardItem header>
-        <DeckSwiper
-          dataSource={filenames}
-          renderItem={filename => (
-            <Image
-              source={{uri: filename}}
-              style={{width: 400, height: 'auto'}}
-            />
-          )}
-        />
+        <ImageSlider images={filenames} />
       </CardItem>
-      <CardItem cardBody>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <Text>{title}</Text>
-        </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={{flex: 3, flexDirection: 'col'}}>
-            <Rating readonly startingValue={rate} />
-          </View>
-          <View style={{flex: 1, flexDirection: 'col'}}>
-            <Text>{rate}</Text>
-          </View>
-          <View style={{flex: 2, flexDirection: 'col'}}>
-            <Icon name="person" />
-            <Text>{testimonials ? testimonials.length : 0}</Text>
-          </View>
-        </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <Text>{description}</Text>
-        </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <Icon name="pricetag" />
-          <Text>{convertPrice(price)}</Text>
-        </View>  
+      <CardItem cardBody style={{marginHorizontal: 20, marginBottom: 10}}>
+        <Grid>
+          <Row>
+            <H2>{title}</H2>
+          </Row>
+          <Row style={{justifyContent: 'space-between', alignItems: 'center'}}>
+            <Rating readonly startingValue={rate} imageSize={25} />
+            <Text style={{flexWrap: 'wrap'}}>
+              {rate} (
+              <Icon name="person" type="Ionicons" style={{fontSize: 15}} />{' '}
+              {testimonials.length})
+            </Text>
+          </Row>
+          <Row style={{marginBottom: 10}}>
+            <Text>{description}</Text>
+          </Row>
+          <Row style={{justifyContent: 'flex-start', alignItems: 'center'}}>
+            <Icon name="pricetag" type="Ionicons" style={{fontSize: 30}} />
+            <H3>{convertPrice(price)}</H3>
+          </Row>
+        </Grid>
       </CardItem>
       <CardItem footer>
-        <Button primary rounded iconLeft onPress={() => showDetail(itemId)}>
-          <Icon name="information-circle" />
-          <Text>Details</Text>
+        <Button primary rounded block onPress={() => {}}>
+          <Icon name="information-circle" type="Ionicons" />
+          <Text>{' Detail'}</Text>
         </Button>
       </CardItem>
     </Card>

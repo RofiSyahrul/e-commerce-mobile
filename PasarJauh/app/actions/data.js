@@ -35,24 +35,10 @@ export const loadData = (
       .get('', config)
       .then(result => {
         let response = result.data;
-        console.log({response});
-
         let {error, numOfPages, items} = response;
         if (error) dispatch(loadDataFailure());
         else {
           dispatch(loadDataSuccess(items, {limit, page, numOfPages}, sortBy));
-          // localStorage.setItem(
-          //   'data',
-          //   JSON.stringify(
-          //     {
-          //       items,
-          //       pagination: {limit, page, numOfPages},
-          //       sortBy,
-          //     },
-          //     null,
-          //     5,
-          //   ),
-          // );
         }
       })
       .catch(err => {

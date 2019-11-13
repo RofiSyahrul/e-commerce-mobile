@@ -1,5 +1,5 @@
 import { request } from "../helpers/accessAPI";
-import { mean } from "../helpers/mean";
+import { mean } from "../helpers/array";
 import {
   LOAD_TESTIMONIALS,
   ADD_TESTIMONIALS,
