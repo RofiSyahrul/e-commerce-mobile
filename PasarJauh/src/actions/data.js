@@ -27,6 +27,7 @@ const loadDataFailure = () => ({type: LOAD_DATA_FAILURE});
 
 export const loadData = (
   config = {headers: {sortBy: '', limit: 4, page: 1}},
+  callback = () => {}
 ) => {
   let {sortBy, limit, page} = config.headers;
   sortBy = JSON.parse(sortBy || JSON.stringify(defaultSortBy));
@@ -35,12 +36,11 @@ export const loadData = (
       .get('', config)
       .then(result => {
         let response = result.data;
-        console.log({response});
-
         let {error, numOfPages, items} = response;
         if (error) dispatch(loadDataFailure());
         else {
           dispatch(loadDataSuccess(items, {limit, page, numOfPages}, sortBy));
+          callback();
           // localStorage.setItem(
           //   'data',
           //   JSON.stringify(
@@ -57,7 +57,6 @@ export const loadData = (
       })
       .catch(err => {
         console.log('GAGAL', err.toString());
-        
         dispatch(loadDataFailure());
       });
   };

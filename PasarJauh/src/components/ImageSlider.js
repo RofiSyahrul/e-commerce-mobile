@@ -16,28 +16,6 @@ const height = width * 0.8;
 const FIXED_BAR_WIDTH = 280;
 const BAR_SPACE = 10;
 
-export class ImageSlider1 extends Component {
-  render() {
-    let {images} = this.props;
-    const isArray = images instanceof Array;
-    images = isArray && shuffle(images); // shuffle images array
-    return (
-      isArray && (
-        <View style={styles.scrollContainer}>
-          <ScrollView
-            horizontal
-            alwaysBounceHorizontal
-            showsHorizontalScrollIndicator={true}>
-            {images.map(image => (
-              <Image key={image} style={styles.image} source={{uri: image}} />
-            ))}
-          </ScrollView>
-        </View>
-      )
-    );
-  }
-}
-
 export default class ImageSlider extends Component {
   animVal = new Animated.Value(0);
 
@@ -136,7 +114,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     top: height,
     flexDirection: 'row',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   track: {
     backgroundColor: '#ccc',

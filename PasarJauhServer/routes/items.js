@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Item = require("../models/item");
 const upload = require("../helpers/upload");
-const filePath = "http://localhost:3001/images/";
+const filePath = "http://192.168.1.6:3001/images/";
 
 const defaultSortBy = [
   { field: "rate", asc: false },
@@ -124,11 +124,10 @@ router.post("/filter", (req, res) => {
 
 // add
 router.post("/", upload.array("images", 10), (req, res) => {
-  let { colors, capacities, sizes, stock, price, itemId } = req.body;
+  let { capacities, sizes, stock, price, itemId } = req.body;
   let filenames = req.files.map(file => file.filename);
   let itemAdded = {
     ...req.body,
-    ...(colors && { colors: JSON.parse(colors) }),
     ...(capacities && {
       capacities: JSON.parse(capacities).map(cap => `${cap} GB`)
     }),

@@ -9,7 +9,6 @@ const itemSchema = new mongoose.Schema({
   description: String,
   detail: String,
   brand: String,
-  colors: [String],
   stock: Number,
   capacities: [String],
   sizes: [String],
