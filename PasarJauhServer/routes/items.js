@@ -9,7 +9,6 @@ const defaultSortBy = [
   { field: "price", asc: true },
   { field: "vote", asc: false }
 ];
-
 // get list
 router.get("/", (req, res) => {
   let sortBy = JSON.parse(
